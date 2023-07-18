@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting </title>
+    <style>
+        #sorted-list-container {
+            display: flex;
+        }
+
+        #sorted-list-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <label for="integers">Enter integers separated by commas:</label>
+    <input type="text" id="integers" name="integers" required>
+    <button onclick="sortIntegers()">Sort</button>
+    <div id="sorted-list-container">
+        <div id="sorted-list-heading">Sorted List:</div>
+        <div id="sorted-list-box"></div>
+    </div>
+
+    <script>
+        function sortIntegers() {
+            var inputField = document.getElementById("integers");
+            var integers = inputField.value.split(",").map(function(item) {
+                return parseInt(item.trim());
+            });
+
+            // Sort the integers in ascending order
+            var sortedIntegers = integers.sort(function(a, b) {
+                return a - b;
+            });
+
+            // Display the sorted list
+            var sortedListDiv = document.getElementById("sorted-list-box");
+            sortedListDiv.innerHTML = sortedIntegers.join(", ");
+
+            // Update the 'Search' button to open the new page with the sorted integers
+            var searchButton = document.getElementById("search-button");
+            searchButton.setAttribute('onclick', "openNewPage('" + sortedIntegers.join(",") + "');");
+        }
+
+        function openNewPage(sortedIntegers) {
+            window.location.href = '/new_page?sorted_integers=' + sortedIntegers;
+        }
+    </script>
+    <button id="search-button" onclick="openNewPage()">Search</button>
+</body>
+</html>
+
+
