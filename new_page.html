@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Page</title>
+    <style>
+        .number-box {
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="number-box">
+        {{ sorted_integers | join(", ") }}
+    </div>
+    <br>
+    <label for="search-number">Enter a number to search:</label>
+    <input type="text" id="search-number" required>
+    <button onclick="searchNumber()">Search</button>
+    <p id="search-result"></p>
+
+    <script>
+        // Get the sorted integers from the template
+        var sortedIntegers = [{{ sorted_integers | join(", ") }}];
+
+        function searchNumber() {
+            var inputField = document.getElementById("search-number");
+            var searchValue = parseInt(inputField.value.trim());
+
+            if (isNaN(searchValue)) {
+                alert("Please enter a valid integer.");
+                return;
+            }
+
+            // Find all occurrences of the searchValue in the sortedIntegers array
+            var indices = [];
+            for (var i = 0; i < sortedIntegers.length; i++) {
+                if (sortedIntegers[i] === searchValue) {
+                    indices.push(i);
+                }
+            }
+
+            var searchResultParagraph = document.getElementById("search-result");
+            if (indices.length > 0) {
+                var resultMessage = "Indices of " + searchValue + " in the ascending list are: " + indices.join(", ");
+                searchResultParagraph.textContent = resultMessage;
+            } else {
+                searchResultParagraph.textContent = searchValue + " is not found in the ascending list.";
+            }
+        }
+    </script>
+</body>
+</html>
